@@ -27,9 +27,15 @@ public class GoldManager : MonoBehaviour
         UpdateGoldTxt();
     }
 
-    public void IncreaseGold()
+    public void IncreaseGold(int value)
     {
-        gold++;
+        gold += value;
+        UpdateGoldTxt();
+    }
+
+    public void AutoIncreaseGold(int value)
+    {
+        gold += value;
         UpdateGoldTxt();
     }
 
