@@ -9,7 +9,8 @@ public class AutoClickBtn : MonoBehaviour
     private Coroutine autoIncreaseCoroutine;
     public int clickCount = 0;
 
-    public Text increaseTxt;
+    public Text increaseGoldTxt;
+    public Text increaseLevelTxt;
 
     public void OnAutoBtn()
     {
@@ -21,7 +22,8 @@ public class AutoClickBtn : MonoBehaviour
         }
         
         autoIncreaseCoroutine = StartCoroutine(AutoIncreaseGold());
-        UpdateIncreaseTxt();
+        UpdateIncreaseGoldTxt();
+        UpdateIncreaseLevelTxt();
     }
 
     private IEnumerator AutoIncreaseGold()
@@ -42,8 +44,13 @@ public class AutoClickBtn : MonoBehaviour
         }
     }
 
-    private void UpdateIncreaseTxt()
+    private void UpdateIncreaseGoldTxt()
     {
-        increaseTxt.text = $"<b><color=green>증가량</color></b> : <b><color=red>{clickCount}/s</color></b>";
+        increaseGoldTxt.text = $"<b><color=green>증가량</color></b> : <b><color=red>{clickCount}/s</color></b>";
+    }
+
+    private void UpdateIncreaseLevelTxt()
+    {
+        increaseLevelTxt.text = $"Lv. <color=blue>{clickCount}</color>";
     }
 }
