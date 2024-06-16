@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Drawing;
 using UnityEngine;
@@ -12,18 +13,36 @@ public class AutoClickBtn : MonoBehaviour
     public Text increaseGoldTxt;
     public Text increaseLevelTxt;
 
+    public int autoClickCost;
+    public Text costTxt;
+
+    public GameObject NotEnoughGoldUI;
+
     public void OnAutoBtn()
     {
-        clickCount++;
+        autoClickCost = 10 + (clickCount * clickCount * 13);
         
-        if (autoIncreaseCoroutine != null)
+        if (GoldManager.Instance.HasEnoughGold(autoClickCost))
         {
-            StopCoroutine(autoIncreaseCoroutine);
+            GoldManager.Instance.SpendGold(autoClickCost);
+
+            clickCount++;
+
+            if (isAutoIncreasing)
+            {
+                StopCoroutine(autoIncreaseCoroutine);
+            }
+
+            autoIncreaseCoroutine = StartCoroutine(AutoIncreaseGold());
+
+            UpdateIncreaseGoldTxt();
+            UpdateIncreaseLevelTxt();
+            UpdateCostTxt();
         }
-        
-        autoIncreaseCoroutine = StartCoroutine(AutoIncreaseGold());
-        UpdateIncreaseGoldTxt();
-        UpdateIncreaseLevelTxt();
+        else
+        {
+            NotEnoughGoldUI.SetActive(true);
+        }
     }
 
     private IEnumerator AutoIncreaseGold()
@@ -52,5 +71,10 @@ public class AutoClickBtn : MonoBehaviour
     private void UpdateIncreaseLevelTxt()
     {
         increaseLevelTxt.text = $"Lv. <color=blue>{clickCount}</color>";
+    }
+
+    private void UpdateCostTxt()
+    {
+        costTxt.text = $"<color=black>Cost :</color> {10 + (clickCount * clickCount * 15)}";
     }
 }

@@ -11,15 +11,36 @@ public class DamageUpgradeBtn : MonoBehaviour
     public Text increaseGoldTxt;
     public Text increaseLevelTxt;
 
+    public Text costTxt;
+
+    public GameObject NotEnoughGoldUI;
+
     public void OnDamageBtn()
     {
-        clickCount++;
-        int newIncreaseValue = 1;
+        int currentCost = CalculateCost(clickCount);
+        
+        if (GoldManager.Instance.HasEnoughGold(currentCost))
+        {
+            GoldManager.Instance.SpendGold(currentCost);
 
-        GoldManager.Instance.IncreaseGoldValue(newIncreaseValue);
+            clickCount++;
+            int newIncreaseValue = clickCount;
 
-        UpdateIncreaseGoldTxt();
-        UpdateIncreaseLevelTxt();
+            GoldManager.Instance.IncreaseGoldValue(newIncreaseValue);
+
+            UpdateIncreaseGoldTxt();
+            UpdateIncreaseLevelTxt();
+            UpdateCostTxt();
+        }
+        else
+        {
+            NotEnoughGoldUI.SetActive(true);
+        }
+    }
+
+    private int CalculateCost(int clickCount)
+    {
+        return 10 + (clickCount * clickCount * 7);
     }
 
     private void UpdateIncreaseLevelTxt()
@@ -30,5 +51,10 @@ public class DamageUpgradeBtn : MonoBehaviour
     private void UpdateIncreaseGoldTxt()
     {
         increaseGoldTxt.text = $"<b><color=green>Αυ°‘·®</color></b> : <b><color=red>{1 + clickCount}</color></b>";
+    }
+
+    private void UpdateCostTxt()
+    {
+        costTxt.text = $"<color=black>Cost :</color> {10 + (clickCount * clickCount * 7)}";
     }
 }

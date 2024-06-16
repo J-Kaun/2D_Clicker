@@ -60,4 +60,18 @@ public class GoldManager : MonoBehaviour
     {
         return goldIncreaseValue;
     }
+
+    public bool HasEnoughGold(int value)
+    {
+        return gold >= value;
+    }
+
+    public void SpendGold(int value)
+    {
+        if (gold >= value)
+        {
+            gold -= value;
+            UpdateGoldTxt();
+        }
+    }
 }
