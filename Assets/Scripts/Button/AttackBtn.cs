@@ -6,6 +6,6 @@ public class AttackBtn: MonoBehaviour
     
     public void OnAttackBtn()
     {
-        GoldManager.Instance.IncreaseGold(IncreaseValue);
+        GoldManager.Instance.UpgradeAttackIncreseGold();
     }
 }

@@ -8,6 +8,7 @@ public class GoldManager : MonoBehaviour
 
     public Text goldTxt;
     private int gold = 0;
+    private int goldIncreaseValue = 1;
 
     private void Awake()
     {
@@ -27,10 +28,21 @@ public class GoldManager : MonoBehaviour
         UpdateGoldTxt();
     }
 
-    public void IncreaseGold(int value)
+    public void AttackIncreaseGold(int value = 1)
     {
         gold += value;
         UpdateGoldTxt();
+    }
+
+    public void UpgradeAttackIncreseGold()
+    {
+        gold += goldIncreaseValue;
+        UpdateGoldTxt();
+    }
+
+    public void IncreaseGoldValue(int value)
+    {
+        goldIncreaseValue += value;
     }
 
     public void AutoIncreaseGold(int value)
@@ -42,5 +54,10 @@ public class GoldManager : MonoBehaviour
     private void UpdateGoldTxt()
     {
         goldTxt.text = gold.ToString();
+    }
+
+    public int GetGoldIncreaseValue()
+    {
+        return goldIncreaseValue;
     }
 }
