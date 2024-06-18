@@ -1,5 +1,7 @@
 # 2D_Clicker
 
+![2D_Clicker](https://github.com/J-Kaun/2D_Clicker/assets/167078349/a0e92900-0ae7-4f39-974a-4faaecb85319)
+
 ---
 
 - Attack 버튼 클릭 시 금화 수급
